@@ -1,0 +1,67 @@
+menuconfig LED_SUBSYSTEM
+    bool "LED Subsystem"
+    default y
+
+if LED_SUBSYSTEM
+
+config BLINK_SLEEP_TIME_MS
+    int  # if no prompt is set, then this will be hidden from all config tools
+    default 250 if BLINK_SLEEP_250ms
+    default 500 if BLINK_SLEEP_500ms
+    default 1000 if BLINK_SLEEP_1000ms
+    default 2000 if BLINK_SLEEP_2000ms
+    default 0
+
+
+choice
+    prompt "LED blink speed"
+    default BLINK_SLEEP_1000ms
+
+
+config BLINK_SLEEP_250ms
+    bool "Fast (0.25s)"
+
+config BLINK_SLEEP_500ms
+    bool "Medium-Fast (0.5s)"
+
+config BLINK_SLEEP_1000ms
+    bool "Medium (1s)"
+
+config BLINK_SLEEP_2000ms
+    bool "Slow (2s)"
+
+endchoice
+
+menuconfig Advanced_LED_Options
+    bool "Advanced LED Settings"
+    default n
+
+if Advanced_LED_Options
+config LED_Brightness
+    int "LED Brightness"
+    default 100
+    range 0 100
+
+config LED_FADE
+    int "LED Fade Duration"
+    default 500
+    range 0 5000
+    
+
+
+menu "EXPERT LED SETTINGS"
+    visible if Advanced_LED_Options
+
+config LED_DEBUG
+    bool "Enable LED Debugging"
+    default n
+config LED_CUSTOM
+    bool "Enable Custom LED Blink Pattern"
+    default n
+endmenu
+
+endif
+
+endif
+
+source "Kconfig.zephyr" # need this line so that it looks a the rest of the default zephyr config after your custom code above
