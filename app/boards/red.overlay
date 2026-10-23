@@ -1,0 +1,5 @@
+/{
+	aliases{
+		warning-led = &red_led; //cant use underscore in alias names
+	};
+};
