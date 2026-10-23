@@ -5,9 +5,6 @@
 
 /* The devicetree node identifier for the "led0" alias. */
 #define LED_NODE DT_ALIAS(app_led)
-//#define LED_NODE DT_ALIAS(warning_led) //use the underscore here even though its a - in overlay file because cant have - in c varaible name so it gets swapped
-// #define LED_NODE DT_NODELABEL(red_led) //added during demo
-// LED_NODE DT_PATH(leds, led_2) -- would get blue LED
 
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED_NODE, gpios);
 
